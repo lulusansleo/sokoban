@@ -14,7 +14,7 @@ static void print_usage(void)
     write(1, "DESCRIPTION\n", 13);
     write(1, "     map file representing the map,", 36);
     write(1, "containing '#' for walls,\n", 27);
-    write(1, "     'P' for the player, 'X' for boxes", 39);
+    write(1, "     'P' for the player, 'X' for boxes ", 40);
     write(1, "and '0' for storage locations.\n", 32);
 }
 
@@ -33,8 +33,11 @@ int open_sokoban(char const *filepath)
     stat(filepath, &st);
     buffer = malloc(sizeof (char) * (st.st_size + 1));
     read(fd, buffer, st.st_size);
+    buffer[st.st_size] = '\0';
+    close(fd);
     if (check_map(buffer))
         return -1;
     sokoban(buffer);
+    free(buffer);
     return 0;
 }

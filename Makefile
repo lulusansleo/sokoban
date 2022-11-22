@@ -8,11 +8,12 @@
 SRC				=	source/main_file.c\
 					source/open_sokoban.c\
 					source/sokoban_game.c\
-					source/check_for_errors.c
+					source/check_for_errors.c\
+					source/manage_map.c
 
 OBJ				=	$(SRC:.c=.o)
 
-CPPFLAGS		=	-Wall -Wextra -I./include/
+CPPFLAGS		=	-Wall -Wextra -I./include/ -lncurses
 
 MYH				=	include/my.h
 
