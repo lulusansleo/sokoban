@@ -20,9 +20,9 @@ static void print_usage(void)
 
 int open_sokoban(char const *filepath)
 {
-    int fd = 0;
-    char *buffer;
+    int fd = 0; char *buffer;
     struct stat st;
+    int ret = 0;
 
     if (my_strcmp(filepath, "-h") == 0) {
         print_usage();
@@ -37,7 +37,7 @@ int open_sokoban(char const *filepath)
     close(fd);
     if (check_map(buffer))
         return -1;
-    sokoban(buffer);
+    ret = sokoban(buffer);
     free(buffer);
-    return 0;
+    return ret;
 }

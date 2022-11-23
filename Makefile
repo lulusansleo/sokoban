@@ -9,7 +9,9 @@ SRC				=	source/main_file.c\
 					source/open_sokoban.c\
 					source/sokoban_game.c\
 					source/check_for_errors.c\
-					source/manage_map.c
+					source/manage_map.c\
+					source/manage_events.c\
+					source/pos.c
 
 OBJ				=	$(SRC:.c=.o)
 
