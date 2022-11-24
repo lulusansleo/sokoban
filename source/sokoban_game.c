@@ -26,20 +26,20 @@ void reset_map(char **map, char **copy, pos_t *pos)
 
 int manage_input(WINDOW *stdscr, pos_t *player_pos, char **map, char **copy)
 {
-    int c = 0;
-
-    while (c != 27) {
-        c = getch();
+    int c = 0; int move_state = 0;
+    while ((c = getch()) != 27) {
         if (c == KEY_UP)
-            move_player(player_pos, map, get_vect(0, -1), copy);
+            move_state = move_player(player_pos, map, get_vect(0, -1), copy);
         if (c == KEY_DOWN)
-            move_player(player_pos, map, get_vect(0, 1), copy);
+            move_state = move_player(player_pos, map, get_vect(0, 1), copy);
         if (c == KEY_LEFT)
-            move_player(player_pos, map, get_vect(-1, 0), copy);
+            move_state = move_player(player_pos, map, get_vect(-1, 0), copy);
         if (c == KEY_RIGHT)
-            move_player(player_pos, map, get_vect(1, 0), copy);
+            move_state = move_player(player_pos, map, get_vect(1, 0), copy);
         if (c == ' ')
             reset_map(map, copy, player_pos);
+        if (move_state)
+            return 1;
         if (won(map, copy) == 1)
             return 0;
         wclear(stdscr);
@@ -64,5 +64,6 @@ int sokoban(char *buffer)
     ret = manage_input(stdscr, &player_pos, map, copy);
     endwin();
     free_map(map);
+    free_map(copy);
     return ret;
 }

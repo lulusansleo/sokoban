@@ -8,6 +8,31 @@
 #include "my.h"
 #include "sokoban.h"
 
+
+int check_adjacent(pos_t block_pos, char **map, pos_t move)
+{
+    pos_t new_pos = move;
+    new_pos.x += block_pos.x;
+    new_pos.y += block_pos.y;
+    if (is_a_wall(map[new_pos.y - 1][new_pos.x]))
+        if (is_a_wall(map[new_pos.y][new_pos.x - 1]) ||
+        is_a_wall(map[new_pos.y][new_pos.x + 1]))
+            return 1;
+    if (is_a_wall(map[new_pos.y + 1][new_pos.x]))
+        if (is_a_wall(map[new_pos.y][new_pos.x - 1]) ||
+        is_a_wall(map[new_pos.y][new_pos.x + 1]))
+            return 1;
+    if (is_a_wall(map[new_pos.y][new_pos.x - 1]))
+        if (is_a_wall(map[new_pos.y + 1][new_pos.x]) ||
+        is_a_wall(map[new_pos.y - 1][new_pos.x]))
+            return 1;
+    if (is_a_wall(map[new_pos.y][new_pos.x + 1]))
+        if (is_a_wall(map[new_pos.y + 1][new_pos.x]) ||
+        is_a_wall(map[new_pos.y - 1][new_pos.x]))
+            return 1;
+    return 0;
+}
+
 char **buffer_to_map(char *buffer)
 {
     int x = 0;

@@ -27,6 +27,8 @@
     pos_t get_vect(int x, int y);
     int push_block(pos_t *block_pos, char **map, pos_t move);
     int won(char **map, char **cpy);
-    void move_player(pos_t *player_pos, char **map, pos_t move, char **copy);
+    int move_player(pos_t *player_pos, char **map, pos_t move, char **copy);
+    int check_adjacent(pos_t block_pos, char **map, pos_t move);
+    int is_a_wall(char c);
 
 #endif /* !sokoban_h */
