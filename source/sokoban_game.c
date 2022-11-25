@@ -38,10 +38,10 @@ int manage_input(WINDOW *stdscr, pos_t *player_pos, char **map, char **copy)
             move_state = move_player(player_pos, map, get_vect(1, 0), copy);
         if (c == ' ')
             reset_map(map, copy, player_pos);
-        if (move_state)
-            return 1;
         if (won(map, copy) == 1)
             return 0;
+        if (move_state)
+            return 1;
         wclear(stdscr);
         print_map(map);
     }
