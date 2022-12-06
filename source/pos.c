@@ -20,9 +20,11 @@ pos_t change_pos_if(pos_t player_pos, int i, int j, char **map)
 pos_t get_pos(char **map)
 {
     pos_t player_pos = {0, 0};
+
     for (int j = 0; map[j] != NULL; j++)
-        for (int i = 0; map[j][i] != '\0'; i++)
+        for (int i = 0; map[j][i] != '\0'; i++) {
             player_pos = change_pos_if(player_pos, i, j, map);
+        }
     return player_pos;
 }
 

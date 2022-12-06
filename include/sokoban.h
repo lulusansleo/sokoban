@@ -30,5 +30,7 @@
     int move_player(pos_t *player_pos, char **map, pos_t move, char **copy);
     int check_adjacent(pos_t block_pos, char **map, pos_t move);
     int is_a_wall(char c);
+    int check_for_loss(char **map, char **copy);
+    int check_for_stuck(char **map, int y, int x);
 
 #endif /* !sokoban_h */

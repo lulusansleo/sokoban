@@ -49,8 +49,9 @@ char **buffer_to_map(char *buffer)
     for (int i = 0; i < y; i++) {
         map[i] = malloc(sizeof(char) * (x + 1));
         my_strncpy(map[i], buffer + i * (x + 1), x);
+        map[i][x] = '\0';
     }
-    map[y] = NULL;
+    map[y - 1] = NULL;
     return map;
 }
 

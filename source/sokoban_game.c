@@ -21,26 +21,26 @@ void reset_map(char **map, char **copy, pos_t *pos)
     for (int i = 0; map[i] != NULL; i++)
         for (int j = 0; map[i][j] != '\0'; j++)
             map[i][j] = copy[i][j];
-    *pos = get_pos(map);
+    *pos = get_pos(copy);
 }
 
 int manage_input(WINDOW *stdscr, pos_t *player_pos, char **map, char **copy)
 {
-    int c = 0; int move_state = 0;
+    int c = 0;
     while ((c = getch()) != 27) {
         if (c == KEY_UP)
-            move_state = move_player(player_pos, map, get_vect(0, -1), copy);
+            move_player(player_pos, map, get_vect(0, -1), copy);
         if (c == KEY_DOWN)
-            move_state = move_player(player_pos, map, get_vect(0, 1), copy);
+            move_player(player_pos, map, get_vect(0, 1), copy);
         if (c == KEY_LEFT)
-            move_state = move_player(player_pos, map, get_vect(-1, 0), copy);
+            move_player(player_pos, map, get_vect(-1, 0), copy);
         if (c == KEY_RIGHT)
-            move_state = move_player(player_pos, map, get_vect(1, 0), copy);
+            move_player(player_pos, map, get_vect(1, 0), copy);
         if (c == ' ')
             reset_map(map, copy, player_pos);
         if (won(map, copy) == 1)
             return 0;
-        if (move_state)
+        if (check_for_loss(map, copy))
             return 1;
         wclear(stdscr);
         print_map(map);
@@ -54,6 +54,8 @@ int sokoban(char *buffer)
     char **copy = buffer_to_map(buffer);
     int ret = 0;
 
+    for (int i = 0; map[i] != NULL; i++)
+        printf ("%s\n", map[i]);
     pos_t player_pos = get_pos(map);
     initscr();
     raw();

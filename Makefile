@@ -11,7 +11,8 @@ SRC				=	source/main_file.c\
 					source/check_for_errors.c\
 					source/manage_map.c\
 					source/manage_events.c\
-					source/pos.c
+					source/pos.c\
+					source/lost.c
 
 OBJ				=	$(SRC:.c=.o)
 

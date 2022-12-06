@@ -17,15 +17,14 @@ int is_a_wall(char c)
 
 int push_block(pos_t *block_pos, char **map, pos_t move)
 {
-    pos_t cpy = *block_pos;
     if (map[block_pos->y][block_pos->x] == 'X') {
         if (map[block_pos->y + move.y][block_pos->x + move.x] == '#' ||
         map[block_pos->y + move.y][block_pos->x + move.x] == 'X')
             return 1;
+        if (check_for_stuck(map, block_pos->y, block_pos->x))
+            return -1;
         map[block_pos->y][block_pos->x] = ' ';
         map[block_pos->y + move.y][block_pos->x + move.x] = 'X';
-        if (check_adjacent(cpy, map, move))
-            return -1;
     }
     return 0;
 }
@@ -62,7 +61,7 @@ int move_player(pos_t *player_pos, char **map, pos_t move, char **copy)
     if (push_state == -1)
         return 1;
     if (map[player_pos->y + move.y][player_pos->x + move.x] != '#'
-    && push_state == 0) {
+    && push_state != 1) {
         map[player_pos->y][player_pos->x] = ' ';
         map[player_pos->y + move.y][player_pos->x + move.x] = tmp;
         if (copy[player_pos->y][player_pos->x] == 'O')
