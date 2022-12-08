@@ -54,8 +54,6 @@ int sokoban(char *buffer)
     char **copy = buffer_to_map(buffer);
     int ret = 0;
 
-    for (int i = 0; map[i] != NULL; i++)
-        printf ("%s\n", map[i]);
     pos_t player_pos = get_pos(map);
     initscr();
     raw();
